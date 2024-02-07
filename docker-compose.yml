@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    environment:
+      - POSTGRES_PASSWORD=bar
+      - POSTGRES_USER=foo
+      - POSTGRES_DB=ddg
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  rest-service:
+    container_name: rest-service
+    build:
+      context: ./
+    image: ddg
+    healthcheck:
+      test: curl --fail http://localhost:8080/ping || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: foo
+      DB_PASSWORD: bar
+      DB_NAME: ddg
+    links:
+      - db
+volumes:
+  db:
+    driver: local
