@@ -37,6 +37,9 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      ASANA_PAT: ${ASANA_PAT}
+      ASANA_USER_ID: ${ASANA_USER_ID}
+      ASANA_PROJECT: ${ASANA_PROJECT}
     links:
       - db
 volumes:

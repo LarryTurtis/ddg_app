@@ -16,16 +16,20 @@ import lombok.extern.slf4j.Slf4j;
 public class Scheduler {
 
     private DBService dbService;
+    private AsanaService asanaService;
 
     @Autowired
-    public Scheduler(DBService dbService) {
+    public Scheduler(DBService dbService, AsanaService asanaService) {
         this.dbService = dbService;
+        this.asanaService = asanaService;
     }
 
     @Scheduled(fixedRate = 10000)
     public void task() {
         Analysis analysis = gatherResults();
         log.info("Analysis: " + analysis.toString());
+        this.asanaService.createTask(analysis);
+        log.info("Task created successfully.");
     }
 
     private Analysis gatherResults() {

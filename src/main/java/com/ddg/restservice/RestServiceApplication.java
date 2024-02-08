@@ -37,6 +37,11 @@ public class RestServiceApplication {
 	}
 
 	@Bean
+	public AsanaService getAsanaService() {
+		return new AsanaService();
+	}
+
+	@Bean
 	public DBService getDbService() {
 		return new DBService(getSessionFactory());
 	}
