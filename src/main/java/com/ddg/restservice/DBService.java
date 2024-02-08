@@ -2,18 +2,11 @@ package com.ddg.restservice;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-
 import javax.persistence.PersistenceException;
-import javax.persistence.RollbackException;
-
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ddg.db.Entry;
-import com.ddg.models.DDGException;
 
 @Slf4j
 public class DBService {

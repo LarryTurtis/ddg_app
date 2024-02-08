@@ -8,8 +8,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class RestServiceApplication {
 
 	public static void main(String[] args) {
@@ -19,8 +21,12 @@ public class RestServiceApplication {
 	@Bean
 	public SessionFactory getSessionFactory() {
 		try {
-			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml").build();
+			StandardServiceRegistryBuilder standardRegistryBuilder = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml");
+			standardRegistryBuilder.applySetting("hibernate.connection.url", System.getenv("DATABASE_URL"));
+			standardRegistryBuilder.applySetting("hibernate.connection.username", System.getenv("DATABASE_USER"));
+			standardRegistryBuilder.applySetting("hibernate.connection.password", System.getenv("DATABASE_PASSWORD"));
+			StandardServiceRegistry standardRegistry = standardRegistryBuilder.build();
 			Metadata metaData = new MetadataSources(standardRegistry)
 					.getMetadataBuilder()
 					.build();

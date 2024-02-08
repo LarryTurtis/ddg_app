@@ -1,4 +1,4 @@
-package com.ddg.models;
+package com.ddg.restservice;
 
 public class DDGException extends RuntimeException {
 

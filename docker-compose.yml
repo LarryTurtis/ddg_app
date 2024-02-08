@@ -9,9 +9,9 @@ services:
       - db:/var/lib/postgresql/data
       - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     environment:
-      - POSTGRES_PASSWORD=bar
-      - POSTGRES_USER=foo
-      - POSTGRES_DB=ddg
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_DB=${DATABASE_NAME}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
@@ -34,11 +34,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: foo
-      DB_PASSWORD: bar
-      DB_NAME: ddg
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     links:
       - db
 volumes:
