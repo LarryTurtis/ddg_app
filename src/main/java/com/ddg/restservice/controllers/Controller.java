@@ -1,6 +1,9 @@
 package com.ddg.restservice.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +37,7 @@ public class Controller {
         Entry entry = new Entry();
         entry.setComment(submissionDTO.getComment());
         entry.setIsPositive(submissionDTO.getIsPositive());
-        entry.setUserId(submissionDTO.getUserId());
+        entry.setUserId(UUID.randomUUID());
         log.info("Converted to entry: " + entry.toString());
         dbService.store(entry);
         return new SubmissionResponse("Success");

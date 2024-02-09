@@ -5,7 +5,6 @@ function App() {
   let [formData, setFormData] = useState({
     comment: "",
     isPositive: true,
-    userId: crypto.randomUUID(),
   });
 
   let defaultState = {
