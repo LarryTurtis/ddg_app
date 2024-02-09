@@ -78,7 +78,7 @@ function App() {
             How was your experience?
             <div>
               <select
-                name="comment"
+                name="isPositive"
                 value={formData.isPositive}
                 onChange={(e) => updateForm(e.target.name, e.target.value)}
                 disabled={formState.success || formState.error}
