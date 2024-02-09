@@ -12,7 +12,7 @@
  <property name="hibernate.format_sql">true</property>
 
  <property name="hbm2ddl.auto">update</property>
- <mapping class="com.ddg.db.Entry"/>
+ <mapping class="com.ddg.models.Entry"/>
  
  </session-factory>
 </hibernate-configuration>

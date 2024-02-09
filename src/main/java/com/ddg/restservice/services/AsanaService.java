@@ -1,4 +1,4 @@
-package com.ddg.restservice;
+package com.ddg.restservice.services;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -7,6 +7,8 @@ import java.util.Date;
 
 import com.asana.Client;
 import com.asana.models.Task;
+import com.ddg.models.Analysis;
+import com.ddg.models.DDGException;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -40,6 +40,7 @@ services:
       ASANA_PAT: ${ASANA_PAT}
       ASANA_USER_ID: ${ASANA_USER_ID}
       ASANA_PROJECT: ${ASANA_PROJECT}
+      ASANA_WORKSPACE: ${ASANA_WORKSPACE}
     links:
       - db
 volumes:

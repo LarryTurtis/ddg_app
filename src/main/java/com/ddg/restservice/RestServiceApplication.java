@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.ddg.restservice.services.AsanaService;
+import com.ddg.restservice.services.DBService;
+
 @SpringBootApplication
 @EnableScheduling
 public class RestServiceApplication {

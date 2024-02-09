@@ -1,9 +1,13 @@
-package com.ddg.restservice;
+package com.ddg.restservice.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.ddg.db.Entry;
+
+import com.ddg.models.Entry;
+import com.ddg.models.SubmissionDTO;
+import com.ddg.models.SubmissionResponse;
+import com.ddg.restservice.services.DBService;
 
 @RestController
 @Slf4j

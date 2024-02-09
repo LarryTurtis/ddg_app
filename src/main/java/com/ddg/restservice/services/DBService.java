@@ -1,4 +1,4 @@
-package com.ddg.restservice;
+package com.ddg.restservice.services;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.ddg.db.Entry;
+
+import com.ddg.models.DDGException;
+import com.ddg.models.Entry;
 
 @Slf4j
 public class DBService {

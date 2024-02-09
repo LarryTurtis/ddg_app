@@ -1,13 +1,15 @@
-package com.ddg.restservice;
+package com.ddg.restservice.services;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.ddg.db.Entry;
+import com.ddg.models.Analysis;
+import com.ddg.models.Entry;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +26,7 @@ public class Scheduler {
         this.asanaService = asanaService;
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.DAYS)
     public void task() {
         Analysis analysis = gatherResults();
         log.info("Analysis: " + analysis.toString());

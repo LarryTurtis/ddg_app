@@ -1,9 +1,7 @@
-package com.ddg.db;
+package com.ddg.models;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;

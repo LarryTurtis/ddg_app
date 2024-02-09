@@ -1,4 +1,4 @@
-package com.ddg.restservice;
+package com.ddg.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
