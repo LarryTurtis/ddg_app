@@ -1,4 +1,4 @@
-FROM node:13.12.0-alpine as ui
+FROM node:16-alpine as ui
 
 # set working directory
 WORKDIR /ui-client
