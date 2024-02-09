@@ -24,7 +24,6 @@ function App() {
     e.preventDefault();
     // async request which may result error
     try {
-      console.log(process.env.NODE_ENV, process.env.REACT_APP_URL, formData);
       const response = await fetch(`${process.env.REACT_APP_URL}/submit`, {
         method: "POST",
         headers: {
