@@ -13,6 +13,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import com.ddg.restservice.services.AsanaService;
 import com.ddg.restservice.services.DBService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootApplication
 @EnableScheduling
 public class RestServiceApplication {
@@ -23,6 +26,7 @@ public class RestServiceApplication {
 
 	@Bean
 	public SessionFactory getSessionFactory() {
+		log.info(System.getenv("DATABASE_URL"));
 		try {
 			StandardServiceRegistryBuilder standardRegistryBuilder = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml");

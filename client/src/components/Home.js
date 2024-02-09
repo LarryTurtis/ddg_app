@@ -24,7 +24,8 @@ function App() {
     e.preventDefault();
     // async request which may result error
     try {
-      const response = await fetch(`/submit`, {
+      console.log(process.env.NODE_ENV, process.env.REACT_APP_URL, formData);
+      const response = await fetch(`${process.env.REACT_APP_URL}/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,65 +43,64 @@ function App() {
     }
   }
 
-  const form = (
-    <form onSubmit={handleSubmit}>
-      {formState.error ? (
-        <div className="err">
-          Uh-oh! Something went wrong! Please try again later.
-        </div>
-      ) : (
-        ""
-      )}
-      {formState.success ? (
-        <div className="success">Success! Thank you!</div>
-      ) : (
-        ""
-      )}
-      <div className="section">
-        <section>
-          <label className="btn btn-default">
-            We want your feedback!
-            <div>
-              <textarea
-                name="comment"
-                type="textArea"
-                rows="5"
-                columns="70"
-                value={formData.comment}
-                onChange={(e) => updateForm(e.target.name, e.target.value)}
-                disabled={formState.success || formState.error}
-              />
-            </div>
-          </label>
-        </section>
-        <section>
-          <label className="btn btn-default">
-            How was your experience?
-            <div>
-              <select
-                name="isPositive"
-                value={formData.isPositive}
-                onChange={(e) => updateForm(e.target.name, e.target.value)}
-                disabled={formState.success || formState.error}
-              >
-                <option value="true">Positive</option>
-                <option value="false">Negative</option>
-              </select>
-            </div>
-          </label>
-        </section>
-        <section>
-          <input
-            type="submit"
-            value="Submit"
-            disabled={formState.success || formState.error}
-          />
-        </section>
-      </div>
-    </form>
-  );
+  const disableControls =
+    formState.success || formState.error || formState.isLoading;
+
   return (
-    <div className="App-content">{formData.isLoading ? <Loader /> : form}</div>
+    <div className="App-content">
+      <form onSubmit={handleSubmit}>
+        {formState.error ? (
+          <div className="err">
+            Uh-oh! Something went wrong! Please try again later.
+          </div>
+        ) : (
+          ""
+        )}
+        {formState.success ? (
+          <div className="success">Success! Thank you!</div>
+        ) : (
+          ""
+        )}
+        <div className="section">
+          <section>
+            <label className="btn btn-default">
+              We want your feedback!
+              <div>
+                <textarea
+                  name="comment"
+                  type="textArea"
+                  rows="5"
+                  columns="70"
+                  value={formData.comment}
+                  onChange={(e) => updateForm(e.target.name, e.target.value)}
+                  disabled={disableControls}
+                />
+              </div>
+            </label>
+          </section>
+          <section>
+            <label className="btn btn-default">
+              How was your experience?
+              <div>
+                <select
+                  name="isPositive"
+                  value={formData.isPositive}
+                  onChange={(e) => updateForm(e.target.name, e.target.value)}
+                  disabled={disableControls}
+                >
+                  <option value="true">Positive</option>
+                  <option value="false">Negative</option>
+                </select>
+              </div>
+            </label>
+          </section>
+          <section>
+            <input type="submit" value="Submit" disabled={disableControls} />
+          </section>
+        </div>
+        {formState.isLoading && <Loader />}
+      </form>
+    </div>
   );
 }
 
