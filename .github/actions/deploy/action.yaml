@@ -1,0 +1,31 @@
+on:
+  push:
+    branches: [ temp ] 
+
+jobs:
+  deploy-job:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+      - name: Export secrets
+        run: |
+        echo ${{secrets.APP_SECRETS}} > sshenv
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.deploy_host }} 
+          username: ${{ secrets.deploy_user }}
+          password: ${{ secrets.deploy_password }}
+          source: "sshenv"
+          target: "~/.ssh" 
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.deploy_host }}
+          username: ${{ secrets.deploy_user }}
+          password: ${{ secrets.deploy_password }}
+          script: ./provision.sh

@@ -1,9 +1,4 @@
 #! /bin/sh
-
-# Warning! This script does not contain the necessary secrets.
-# It is included here for reference only. The actual script will be provided
-# by the owner of the repository.
-
 echo "Provisioning virtual machine..."
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh
