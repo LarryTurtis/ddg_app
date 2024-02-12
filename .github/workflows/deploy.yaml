@@ -9,22 +9,15 @@ jobs:
     defaults:
       run:
         working-directory: ./scripts
-    env:
-      APP_SECRETS: ${{ secrets.APP_SECRETS }}
-      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-      DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
       - name: Export secrets
-        run: echo ${{secrets.APP_SECRETS}} > sshenv
+        run: echo "$APP_SECRETS" > sshenv
+        env:
+          APP_SECRETS: ${{ secrets.APP_SECRETS }}
       - name: Update remote environment
         uses: appleboy/scp-action@master
-        env:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
