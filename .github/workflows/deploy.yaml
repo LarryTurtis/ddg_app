@@ -11,7 +11,7 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
       - name: Export secrets
-        run: echo "$APP_SECRETS" > sshenv
+        run: echo "$APP_SECRETS" > environment
         env:
           APP_SECRETS: ${{ secrets.APP_SECRETS }}
       - name: Update remote environment
@@ -20,7 +20,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
-          source: "sshenv"
+          source: "environment"
           target: ".ssh"
       - name: executing remote script
         uses: appleboy/ssh-action@master
@@ -28,4 +28,4 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
-          script: ./scripts/provision.sh
+          script: bash -s < ./scripts/provision.sh
