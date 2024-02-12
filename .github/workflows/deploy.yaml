@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           source: "sshenv"
-          target: "~/.ssh"
+          target: ".ssh"
       - name: executing remote script
         uses: appleboy/ssh-action@master
         with:
