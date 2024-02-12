@@ -6,6 +6,7 @@ on:
 jobs:
   deploy-job:
     runs-on: ubuntu-latest
+    environment: production
     defaults:
       run:
         working-directory: ./scripts
