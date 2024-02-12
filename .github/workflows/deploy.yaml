@@ -20,7 +20,11 @@ jobs:
       - name: Export secrets
         run: echo ${{secrets.APP_SECRETS}} > sshenv
       - name: Update remote environment
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@master
+        env:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
