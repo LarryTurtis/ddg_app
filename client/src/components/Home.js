@@ -34,7 +34,16 @@ function App() {
       if (!response.ok) {
         throw new Error(await response.json());
       }
-      setFormState({ success: true, error: false, isLoading: false });
+
+      // This can sometimes be very fast and the loader flickers. Force a little delay
+      setTimeout(() => {
+        setFormState({ success: true, error: false, isLoading: false });
+        // reset form after 2 seconds
+        setTimeout(() => {
+          setFormData({ comment: "", isPositive: true });
+          setFormState(defaultState);
+        }, 2000);
+      }, 500);
     } catch (err) {
       // handle your error
       console.error(JSON.stringify(err));
@@ -48,18 +57,20 @@ function App() {
   return (
     <div className="App-content">
       <form onSubmit={handleSubmit}>
-        {formState.error ? (
-          <div className="err">
-            Uh-oh! Something went wrong! Please try again later.
-          </div>
-        ) : (
-          ""
-        )}
-        {formState.success ? (
-          <div className="success">Success! Thank you!</div>
-        ) : (
-          ""
-        )}
+        <div className="msg">
+          {formState.error ? (
+            <div className="msg err">
+              Uh-oh! Something went wrong! Please try again later.
+            </div>
+          ) : (
+            ""
+          )}
+          {formState.success ? (
+            <div className="success">Success! Thank you!</div>
+          ) : (
+            ""
+          )}
+        </div>
         <div className="section">
           <section>
             <label className="btn btn-default">
