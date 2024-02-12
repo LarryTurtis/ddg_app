@@ -1,4 +1,5 @@
 name: Deploy
+run-name: Deploying...
 on:
   push:
     branches: [main]
@@ -8,6 +9,11 @@ jobs:
     defaults:
       run:
         working-directory: ./scripts
+    env:
+      APP_SECRETS: ${{ secrets.APP_SECRETS }}
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
@@ -16,15 +22,15 @@ jobs:
       - name: copy file via ssh password
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.deploy_host }}
-          username: ${{ secrets.deploy_user }}
-          password: ${{ secrets.deploy_password }}
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
           source: "sshenv"
           target: "~/.ssh"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.deploy_host }}
-          username: ${{ secrets.deploy_user }}
-          password: ${{ secrets.deploy_password }}
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
           script: ./provision.sh
