@@ -51,7 +51,7 @@ docker compose up -d
 
 ### Deploy to Prod
 
-Request provisioning script from the owners of this repo. Once provided, execute it on the desired server:
+Request provisioning script from the owners of this repo. _The script is included in this repo but secrets are redacted_. Once provided, execute it on the desired server:
 
 ```
 ssh username@ip-address 'bash -s' < provision.sh
@@ -59,7 +59,15 @@ ssh username@ip-address 'bash -s' < provision.sh
 
 ### Troubleshoot in Prod
 
-For now, there is just one server. You just ssh into it. 😨
+For now, there is just one server. You just ssh into it. 😨 Your best best is to check the logs; uncaught exceptions will print a stack trace.
+
+There is no need to alter the log level, the application will print everything by default.
+
+Confirm docker container are healthy:
+
+```
+docker ps
+```
 
 View backend logs:
 
@@ -74,4 +82,50 @@ docker exec -u root -it ddg_app-db-1 /bin/bash
 psql -U <Your User> -d <Your Database Name>
 ```
 
-To restart the service, re-run the provisioning script
+If the application seems unavailable / unresponsive, confirm that it's responding on port 8080--
+
+```
+curl localhost:8080/ping
+```
+
+If all else fails, restart the service by re-running the provisioning script (from your local machine)
+
+```
+ssh user@ip.add.ress 'bash -s' < ./provision.sh
+```
+
+### Architecture
+
+#### Diagram
+
+####
+
+![](diagram.png)
+
+#### User Flow
+
+![](https://www.plantuml.com/plantuml/png/POun3i8m34NtdE9Ve6BlK5M87KI1tKsCP2a9o7OuFq68BWnUdf_z_snEwgtaS3LM31CMrXVhY9kOEFfm-28CVVknHfoPecDnSedOjveo_zsVZii5Esjh4Ty-J3YGqqh68vwi9kP8dVo4BI4-wbsqGDbQzX1chgctV0C0)
+
+#### Analysis Flow
+
+![](https://www.plantuml.com/plantuml/png/TOux3i8m44Hxds8lG8EeNA14eg43mWKMUwGW72Fj9nAt1nSK0QNSpxnvdHgB-LJ209aXjDdJa4PaByXNraVWPFUP3J_hnTHI1pQ-iIBIsI4lAgn6snsDJnSDt-iVFz85vb99e5vCb-3FTwzSkJyT8oL1yx1Mdx7YrQ5cdyeR)
+
+#### Deployment Flow
+
+1. Declare secrets.
+1. Install Docker and Docker Compose
+1. Clone application from Github.
+1. Run docker compose.
+   1. Build docker image for postgres server.
+   1. Start postgres container.
+      1. Run migration scripts.
+      1. Perform healthcheck.
+   1. Build docker image for Spring MVC application.
+      1. Build UI react client using node.js
+      1. Install npm dependencies.
+      1. Bundle artifacts with react-scripts.
+   1. Install java dependencies with Maven
+   1. Copy react artifacts into Java static resource folder.
+   1. Package java application into `jar` file.
+   1. Start Spring MVC application on port 8080 by executing `jar`.
+1. Forward traffic from port 80 to port 8080.
