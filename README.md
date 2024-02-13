@@ -49,9 +49,13 @@ Runs on `localhost:3000` by default.
 docker compose up -d
 ```
 
-### Deploy to Prod
+### Deploy to dev
 
-Request provisioning script from the owners of this repo. _The script is included in this repo but secrets are redacted_. Once provided, execute it on the desired server:
+Your code will automatically deploy to dev on merging to main.
+
+### Deploy to another server.
+
+Request provisioning script from the owners of this repo. _The script is included in this repo but the secrets are redacted._ Once provided, execute it on the desired server:
 
 ```
 ssh username@ip-address 'bash -s' < provision.sh
@@ -59,7 +63,7 @@ ssh username@ip-address 'bash -s' < provision.sh
 
 ### Troubleshoot in Prod
 
-For now, there is just one server. You just ssh into it. 😨 Your best best is to check the logs; uncaught exceptions will print a stack trace.
+For now, there is just one server. 😨 Your best best is to check the logs; uncaught exceptions will print a stack trace.
 
 There is no need to alter the log level, the application will print everything by default.
 
