@@ -135,3 +135,14 @@ ssh user@ip.add.ress 'bash -s' < ./provision.sh
    1. Package java application into `jar` file.
    1. Start Spring MVC application on port 8080 by executing `jar`.
 1. Forward traffic from port 80 to port 8080.
+
+### Next Steps
+
+1. Tests! Definitely unit tests, and ideally integration tests.
+1. Distributed logging and dashboards; set up something like datadog.
+1. Modernize the tooling; we are using older versions of java and node. Dependabot does not like package.json.
+1. Deployment is pretty janky; we just ssh and execute a script. We should try to get some kind of deploy tooling set up-- Chef or Puppet, for example. We also need better secrets management... Github is currently the source of truth for secrets.
+1. TLS Certificates, DNS, and a true proxy layer (nginx or apache) instead of iptables.
+1. Consider making the frontend a true standalone app.
+1. Set the database up on its own server. The application as-is cannot scale.
+1. Better database migration management. Right now there is no way to ensure scripts run sequentially.
