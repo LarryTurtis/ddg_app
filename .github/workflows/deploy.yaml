@@ -36,4 +36,4 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
-          script: "source ~/.ssh/environment && ./scripts/provision.sh"
+          script: "source ./.ssh/environment && bash ./scripts/provision.sh"
