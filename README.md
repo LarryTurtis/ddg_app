@@ -57,7 +57,7 @@ Your code will automatically deploy to dev on merging to main. The dev server ca
 
 ### Deploy to another server.
 
-Request provisioning script from the owners of this repo. _The script is included in this repo but the secrets are redacted._ Once provided, execute it on the desired server:
+There is a provisioning script in the `scripts/` folder. Set the appropriate environment variables (prepend the contents of `.env` to the script`) and then execute it on the desired server:
 
 ```
 ssh username@ip-address 'bash -s' < provision.sh
@@ -139,10 +139,10 @@ ssh user@ip.add.ress 'bash -s' < ./provision.sh
 ### Next Steps
 
 1. Tests! Definitely unit tests, and ideally integration tests.
-1. Distributed logging and dashboards; set up something like datadog.
+1. Distributed logging and dashboards; set up something like datadog. There is currently no log rotation or retention.
 1. Modernize the tooling; we are using older versions of java and node. Dependabot does not like package.json.
-1. Deployment is pretty janky; we just ssh and execute a script. We should try to get some kind of deploy tooling set up-- Chef or Puppet, for example. We also need better secrets management... Github is currently the source of truth for secrets.
+1. Deployment is pretty janky; we just ssh and execute a script. We should try to get some kind of deploy tooling set up-- Chef or Puppet, for example. We also need better secrets management... Github is currently the source of truth for secrets. Ideally we'd publish our artifacts to a remote docker repository and separate the build phase from the deployment phase.
 1. TLS Certificates, DNS, and a true proxy layer (nginx or apache) instead of iptables.
 1. Consider making the frontend a true standalone app.
-1. Set the database up on its own server. The application as-is cannot scale.
+1. Set the database up on its own server. Currently the application cannot scale.
 1. Better database migration management. Right now there is no way to ensure scripts run sequentially.
