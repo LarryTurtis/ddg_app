@@ -94,7 +94,7 @@ If the application seems unavailable / unresponsive, confirm that it's respondin
 curl localhost:8080/ping
 ```
 
-If all else fails, restart the service by re-running the provisioning script (from your local machine)
+If all else fails, restart the service by re-running the provisioning script, either from your local machine or manually trigger the github action.
 
 ```
 ssh user@ip.add.ress 'bash -s' < ./provision.sh
