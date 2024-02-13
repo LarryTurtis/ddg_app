@@ -51,7 +51,9 @@ docker compose up -d
 
 ### Deploy to dev
 
-Your code will automatically deploy to dev on merging to main.
+Your code will automatically deploy to dev on merging to main. The dev server can be found at:
+
+[http://20.151.139.80/](http://20.151.139.80/)
 
 ### Deploy to another server.
 
