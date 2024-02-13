@@ -6,7 +6,7 @@ Create an .env file in this folder, with these values:
 
 ```
 DATABASE_NAME="<Your DB Name>"
-DATABASE_URL="jdbc:postgresql://localhost:5432/${DATABASE_NAME}"
+DATABASE_URL="jdbc:postgresql://localhost:5432/<Your DB Name>"
 DATABASE_USER="<Your User>"
 DATABASE_PASSWORD="<Your Password>"
 ASANA_WORKSPACE="<Your Workspace GID>"
@@ -23,7 +23,7 @@ ASANA_USER_ID="<Your User GID>"
 1. Export the .env file as env vars:
 
 ```
-eval $(cat .env)
+export $(cat .env | xargs)
 ```
 
 Deploy the backend and frontend in two different shells:
@@ -140,8 +140,9 @@ ssh user@ip.add.ress 'bash -s' < ./provision.sh
 
 1. Tests! Definitely unit tests, and ideally integration tests.
 1. Distributed logging and dashboards; set up something like datadog. There is currently no log rotation or retention.
-1. Modernize the tooling; we are using older versions of java and node. Dependabot does not like package.json.
-1. Deployment is pretty janky; we just ssh and execute a script. We should try to get some kind of deploy tooling set up-- Chef or Puppet, for example. We also need better secrets management... Github is currently the source of truth for secrets. Ideally we'd publish our artifacts to a remote docker repository and separate the build phase from the deployment phase.
+1. Modernize the tooling; we are using older versions of java and node. Dependabot does not like package.json, which was copied from an old project.
+1. Tweak the analysis; right now we just look back for 24 hours... it's not terribly precise. We should probably "mark" each item as analyzed or keep track of the primary key of the last analyzed item to ensure we don't miss or duplicate entries in our analysis.
+1. Deployment is pretty janky; we just ssh (with a password, not a key) and execute a script. We should try to get some kind of deploy tooling set up-- Chef or Puppet, for example. We also need better secrets management... Github is currently the source of truth for secrets. Ideally we'd publish our artifacts to a remote docker repository and separate the build phase from the deployment phase.
 1. TLS Certificates, DNS, and a true proxy layer (nginx or apache) instead of iptables.
 1. Consider making the frontend a true standalone app.
 1. Set the database up on its own server. Currently the application cannot scale.

@@ -2,7 +2,6 @@ package com.ddg.restservice.services;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +25,8 @@ public class Scheduler {
         this.asanaService = asanaService;
     }
 
-    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.DAYS)
+    // Run at noon every day
+    @Scheduled(cron = "0 0 12 * * ?")
     public void task() {
         Analysis analysis = gatherResults();
         log.info("Analysis: " + analysis.toString());

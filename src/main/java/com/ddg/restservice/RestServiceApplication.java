@@ -26,7 +26,6 @@ public class RestServiceApplication {
 
 	@Bean
 	public SessionFactory getSessionFactory() {
-		log.info(System.getenv("DATABASE_URL"));
 		try {
 			StandardServiceRegistryBuilder standardRegistryBuilder = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml");
