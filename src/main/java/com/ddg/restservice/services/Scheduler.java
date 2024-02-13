@@ -25,8 +25,8 @@ public class Scheduler {
         this.asanaService = asanaService;
     }
 
-    // Run at noon every day
-    @Scheduled(cron = "0 0 12 * * ?")
+    // Run at noon (Eastern) every day
+    @Scheduled(cron = "0 0 17 * * ?")
     public void task() {
         Analysis analysis = gatherResults();
         log.info("Analysis: " + analysis.toString());
