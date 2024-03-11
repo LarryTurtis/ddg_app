@@ -9,5 +9,4 @@ git clone https://github.com/LarryTurtis/ddg_app.git
 cd ddg_app
 git pull origin main
 docker compose up -d --build
-sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 8080
 echo "Provisioning complete"

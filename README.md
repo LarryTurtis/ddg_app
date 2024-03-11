@@ -88,10 +88,10 @@ docker exec -u root -it ddg_app-db-1 /bin/bash
 psql -U <Your User> -d <Your Database Name>
 ```
 
-If the application seems unavailable / unresponsive, confirm that it's responding on port 8080--
+If the application seems unavailable / unresponsive, confirm that it's responding on port 8081--
 
 ```
-curl localhost:8080/ping
+curl localhost:8081/ping
 ```
 
 If all else fails, restart the service by re-running the provisioning script, either from your local machine or manually trigger the github action.
@@ -133,8 +133,8 @@ ssh user@ip.add.ress 'bash -s' < ./provision.sh
    1. Install java dependencies with Maven
    1. Copy react artifacts into Java static resource folder.
    1. Package java application into `jar` file.
-   1. Start Spring MVC application on port 8080 by executing `jar`.
-1. Forward traffic from port 80 to port 8080.
+   1. Start Spring MVC application on port 8081 by executing `jar`.
+1. Forward traffic from port 80 to port 8081.
 
 ### Next Steps
 
